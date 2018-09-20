@@ -13,22 +13,26 @@
 
 Auth::routes();
 
-Route::get('/{user_id?}', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/user/{id}', 'HomeController@user');
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('login', 'Admin\Auth\LoginController@showLoginForm');
-    Route::post('login', 'Admin\Auth\LoginController@login');
-    Route::post('logout', 'Admin\Auth\LoginController@logout');
 
-    Route::get('register', 'Admin\Auth\RegisterController@showRegistrationForm');
-    Route::post('register', 'Admin\Auth\RegisterController@register');
+Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {
+    Route::get('/index', 'Atelier\HomeController@index');
+    Route::get('/user/details/{id}', 'Atelier\HomeController@details');
 
-    Route::get('/index', 'Admin\IndexController@index');
-    Route::get('/image/list', 'Admin\ImageController@list');
+    Route::get('/project/list', 'Atelier\ProjectController@list');
+    Route::get('/project/form/{id?}', 'Atelier\ProjectController@form');
+    Route::post('/project/submit', 'Atelier\ProjectController@submit');
+    Route::get('/project/details/{id}', 'Atelier\ProjectController@details');
 
-    Route::get('/home/list', 'Admin\HomeController@list');
-    Route::get('/home/details/{id}', 'Admin\HomeController@details');
-    Route::post('/home/uploadCoverPhoto', 'Admin\HomeController@uploadCoverPhoto');
-    Route::post('/home/editBasicProfile', 'Admin\HomeController@editBasicProfile');
+    Route::get('/game/test/{id}', 'Atelier\GameController@test');
+    Route::post('/game/submit', 'Atelier\GameController@submit');
+
+    Route::group(['middleware' => ['isAdmin']], function () {
+        Route::get('/user/list', 'Admin\HomeController@list');
+        Route::post('/home/uploadCoverPhoto', 'Admin\HomeController@uploadCoverPhoto');
+        Route::post('/home/editBasicProfile', 'Admin\HomeController@editBasicProfile');
+    });
 });
 

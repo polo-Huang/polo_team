@@ -1,0 +1,16 @@
+.action-btn-group {
+	float: right;
+}
+.action-btn-group>li {
+    display: inline-block;
+}
+.action-btn-group>li+li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "|\00a0";
+}
+
+.a-project {
+	font-size: 22px;
+	font-weight: bold;
+}

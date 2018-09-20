@@ -10,6 +10,7 @@
   <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/common.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/atelier/common.css') }}" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -38,13 +39,17 @@
             <button type="submit" class="btn btn-default">搜索</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="javascript:void(0)">登录</a></li>
+            <li><a href="{{ url('/user/details') }}">{{ Auth::user()->name }}</a></li>
             <li class="dropdown">
               <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span><i class="fa fa-globe"></i></span> <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="javascript:void(0)">简体中文</a></li>
-                <li><a href="javascript:void(0)">繁體中文</a></li>
-                <li><a href="javascript:void(0)">English</a></li>
+                <li>
+                  <a class="dropdown-item withripple" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>注销
+                  </a>
+                </li>
                 <li role="separator" class="divider"></li>
               </ul>
             </li>
@@ -57,11 +62,14 @@
     <div class="sidebar">
       <div>
         <ul class="sidebar-ul">
-          <li><a href="{{ url('/admin/index') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'index') class="active" @endif><span class="icon"><i class="fa fa-gears"></i></span> 站点设置</a></li>
+          <li><a href="{{ url('/atelier/index') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'index') class="active" @endif><span class="icon"><i class="fa fa-gears"></i></span> 工作室</a></li>
+          <li><a href="{{ url('/atelier/project/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'project') class="active" @endif><span class="icon"><i class="fa fa-shopping-cart"></i></span> 项目</a></li>
+          @if (Auth::user()->is_admin)
           <li><a href="{{ url('/admin/home/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'home') class="active" @endif><span class="icon"><i class="fa fa-home"></i></span> 个人主页</a></li>
           <li><a href="{{ url('/admin/image/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'image') class="active" @endif><span class="icon"><i class="fa fa-image"></i></span> 图片</a></li>
-          <li><a href="javascript:void(0)" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'order') class="active" @endif><span class="icon"><i class="fa fa-shopping-cart"></i></span> 订单</a></li>
           <li><a href="javascript:void(0)" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'user') class="active" @endif><span class="icon"><i class="fa fa-photo"></i></span> 用户</a></li>
+          @endif
+          <li><a href="{{ url('/atelier/game/test/1') }}"><span class="icon"><i class="fa fa-game"></i></span> 测试游戏</a></li>
         </ul>
       </div>
     </div>
@@ -74,4 +82,5 @@
 <script src="{{ asset('jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/common.js') }}"></script>
+@yield('after_link')
 </html>

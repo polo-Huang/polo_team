@@ -15,6 +15,11 @@ class HomeController extends Controller
         return view('/admin/home/list', ['list' => $list]);
     }
 
+    public function addHomeForm()
+    {
+        return view('/admin/home/addHomeForm');
+    }
+
     public function details($id)
     {
         $home = Home::find($id);

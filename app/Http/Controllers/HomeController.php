@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Home;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -13,16 +13,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id = null)
+    public function index()
     {
-        if ($user_id != null) {
-            $home = Home::where('user_id', $user_id)->first();
-            $data = ['role' => 'user', 'home' => $home];
-        } else {
-            $home = Home::orderBy('id')->first();
-            $users = User::all();
-            $data = ['role' => 'all', 'home' => $home, 'users' => $users];
-        }
-        return $home == null ? redirect('/') : view('home', $data);
+        $home = Home::where('status', 'active')->orderBy('updated_at', 'desc')->first();
+        if ($home == null)
+            return view('/cannotAccess', ['error' => 'SYSTEMUPGRADE']);
+        $home->users = User::all();
+        return view('home', ['home' => $home]);
+    }
+
+    public function user($id)
+    {
+        $user = User::find($id);
+        if ($user == null)
+            return view('/cannotAccess', ['error' => 'NOTFOUND']);
+        return view('user', ['user' => $user]);
+    }
+
+    public function cannotAccess($error)
+    {
+        return view('cannotAccess', ['error' => $error]);
     }
 }

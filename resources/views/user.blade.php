@@ -4,10 +4,6 @@
   首页
 @endsection
 
-@section('link')
-  <!-- <link rel="stylesheet" href="{{ asset('css/home.css') }}"> -->
-@endsection
-
 @section('content')
 
 <div class="home">
@@ -20,13 +16,13 @@
           <div class="row">
             <div class="col-lg-7 col-sm-7">
               <div class="top_left_cont zoomIn wow animated"> 
-                <h2>We are <strong>{{ $home->name }}</strong> <br>{{ $home->title }}</h2>
-                <p>{{ $home->introduce }}</p>
+                <h2>I am <strong>{{ $user->name }}</strong> <br>{{ $user->homepage_title }}</h2>
+                <p>{{ $user->introduce }}</p>
                 <a href="#service" class="read_more2">查看更多</a> </div>
             </div>
             <div class="col-lg-5 col-sm-5">
               <div class="zoomIn wow animated">
-                <image class="img-contain height-400" src="{{ $home->cover_photo != null ? $home->cover_photo : '/image/programmer-cover.png' }}" alt="" />
+                <image class="img-contain height-400" src="{{ $user->cover_photo != null ? $user->cover_photo : '/image/programmer-cover.png' }}" alt="" />
               </div>
             </div>
           </div>
@@ -45,8 +41,8 @@
         <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><image src="image/about-img.jpg" class="image-circle delay-03s animated wow zoomIn" alt=""></div>
           <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
             <div class=" delay-01s animated fadeInDown wow animated">
-              <h3>{{ $home->name }}</h3><br/> 
-              <p>{{ $home->about }}</p>
+              <h3>{{ $user->name }}</h3><br/> 
+              <p>{{ $user->about }}</p>
             </div>
             <div class="work_bottom"> <span>想了解更多..</span> <a href="#contact" class="contact_btn">联系我们</a> </div>
           </div>
@@ -61,7 +57,7 @@
   <!--Service-->
   <section  id="service">
     <div class="container">
-      <h2>服务</h2>
+      <h2>技能</h2>
       <div class="service_wrapper">
         <div class="row">
           <div class="col-lg-4">
@@ -285,33 +281,6 @@
   </div>
   </section>
   <!--client_logos-->
-
-  <section class="page_section team" id="team"><!--main-section team-start-->
-    <div class="container">
-      <h2>团队</h2>
-      <h6>Lorem ipsum dolor sit amet, consectetur adipiscing.</h6>
-      <div class="team_section clearfix">
-        @foreach($home->users as $key => $value)
-        <div class="team_area">
-          <div class="team_box wow fadeInDown delay-03s">
-            <div class="team_box_shadow"><a href="javascript:void(0)"></a></div>
-            <a href="{{ url('/user/'.$value->id) }}"><image src="{{ $value->picture ? : 'image/team_pic1.jpg' }}" alt=""></a>
-            <ul>
-              <li><a href="javascript:void(0)" class="fa fa-phone"></a></li>
-              <li><a href="javascript:void(0)" class="fa fa-envelope"></a></li>
-              <li><a href="javascript:void(0)" class="fa fa-wechat"></a></li>
-              <li><a href="javascript:void(0)" class="fa fa-qq"></a></li>
-            </ul>
-          </div>
-          <h3 class="wow fadeInDown delay-03s">{{ $value->name }}</h3>
-          <span class="wow fadeInDown delay-03s">{{ $value->role }}</span>
-          <p class="wow fadeInDown delay-03s">{{ $value->job_content }}</p>
-        </div>
-        @endforeach
-      </div>
-    </div>
-  </section>
-  <!--/Team-->
 </div>
 @include('layouts.footer')
 @endsection

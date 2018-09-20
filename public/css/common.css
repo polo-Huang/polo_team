@@ -65,6 +65,9 @@ header .btn-toggle-sidebar:active {
 header .btn-toggle-sidebar span .fa-arrow-right {
   color: #00AAFF;
 }
+dd {
+  margin-bottom: 10px;
+}
 
 
 /* sidebar */
@@ -186,6 +189,24 @@ body.sidebar-close .main {
 
 
 /* common */
+.i-required {
+  margin-left: 5px;
+  color: #ff3300;
+}
+
+.bg-color-white {
+  background-color: white;
+}
+
+.border1-333-solid {
+  border: 1px #333 solid;
+  border-radius: 50%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .pos-rel {
   position: relative;
 }
@@ -209,6 +230,13 @@ body.sidebar-close .main {
 
 .ma-10 {
   margin: 10px;
+}
+.my-50 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.mt-0 {
+  margin-top: 0;
 }
 .mt-10 {
   margin-top: 10px;
@@ -234,6 +262,9 @@ body.sidebar-close .main {
 .mb-20 {
   margin-bottom: 20px;
 }
+.mb-30 {
+  margin-bottom: 30px;
+}
 .mb-20-imp {
   margin-bottom: 20px !important;
 }
@@ -248,6 +279,14 @@ body.sidebar-close .main {
   padding-left: 10px;
   padding-right: 10px;
 }
+.px-15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.px-20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 
 .icon {
   display: inline-block;
@@ -257,6 +296,9 @@ body.sidebar-close .main {
 
 .font-size-150 {
   font-size: 150px;
+}
+.font-size-72 {
+  font-size: 72px; 
 }
 
 /* image */
