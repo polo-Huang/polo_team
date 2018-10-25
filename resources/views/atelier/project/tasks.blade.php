@@ -59,11 +59,12 @@
 					@endforeach
 				@else
 					<tr>
-						<p class="help-block">没有任务</p>
+						<td colspan="7">没有任务</td>
 					</tr>
 				@endif
 			</tbody>
 		</table>
+		<div class="card-footer text-right">{!! $tasks->links() !!}</div>
 	</div>
 </div>
 @endsection

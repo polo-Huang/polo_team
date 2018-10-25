@@ -54,7 +54,8 @@ class ProjectController extends Controller
         $project = Project::find($projectId);
         if ($project == null)
             return view('/atelier/cannotAccess', ['error' => 'NOTFOUND']);
-        $tasks = $project->tasks()->orderBy('id', 'desc')->get();
+        $count = 9;
+        $tasks = $project->tasks()->orderBy('id', 'desc')->paginate($count);
         return view('/atelier/project/tasks', ['project' => $project, 'tasks' => $tasks]);
     }
 

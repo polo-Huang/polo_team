@@ -29,6 +29,7 @@
 	<input type="hidden" name="project_id" value="{{ $task->project_id }}">
 	<section>
 		<ol class="action-btn-group">
+  		<li><a href="{{ url('/atelier/project/tasks/'.$task->project_id) }}">任务</a></li>
 			@if ($task->status != 'new')
 			<li><a class="change-status-btn" status="new" href="javascript:void(0);">新的</a></li>
 			@endif
