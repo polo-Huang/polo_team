@@ -36,7 +36,7 @@
 	  <div class="card-block">
 	  	{!! Form::open(['method' => 'post', 'action' => 'Atelier\ProjectController@submit']) !!}
         <div class="form-group row @if($errors->has('name')) has-error @endif">
-          <label class="col-sm-2 text-right">项目名<span><i class="i-required">*</i></span></label>
+          <label class="col-sm-2 text-right"><span><i class="i-required">*</i></span>项目名</label>
           <div class="col-sm-10">
             {!! Form::text('name', $project == null ? null : $project->name, ['class' => 'form-control']) !!}
 	          @if ($errors->has('name'))

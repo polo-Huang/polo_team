@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
+  @yield('meta')
   <title>@yield('title')</title>
-
   <!-- Styles -->
   <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/common.css') }}" rel="stylesheet">
   <link href="{{ asset('css/atelier/common.css') }}" rel="stylesheet">
+  @yield('link')
 </head>
 <body>
   <header>
@@ -69,11 +69,14 @@
           <li><a href="{{ url('/admin/image/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'image') class="active" @endif><span class="icon"><i class="fa fa-image"></i></span> 图片</a></li>
           <li><a href="javascript:void(0)" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'user') class="active" @endif><span class="icon"><i class="fa fa-photo"></i></span> 用户</a></li>
           @endif
-          <li><a href="{{ url('/atelier/game/test/1') }}"><span class="icon"><i class="fa fa-game"></i></span> 测试游戏</a></li>
+          <li><a href="{{ url('/atelier/game/test/1') }}"><span class="icon"><i class="fa fa-gamepad"></i></span> 测试游戏</a></li>
         </ul>
       </div>
     </div>
-    <div class="main">@yield('content')</div>
+    <div class="main">
+      @yield('content')
+      @include('flash::message')
+    </div>
   </div>
 
 </body>

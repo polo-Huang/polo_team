@@ -34,4 +34,9 @@ class HomeController extends Controller
     {
         return view('cannotAccess', ['error' => $error]);
     }
+
+    public function test()
+    {
+        return view('/test');
+    }
 }

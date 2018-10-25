@@ -189,8 +189,12 @@ body.sidebar-close .main {
 
 
 /* common */
+.form-label {
+  margin-top: 5px;
+}
+
 .i-required {
-  margin-left: 5px;
+  margin-right: 5px;
   color: #ff3300;
 }
 
@@ -230,6 +234,10 @@ body.sidebar-close .main {
 
 .ma-10 {
   margin: 10px;
+}
+.mx-0 {
+  margin-left: 0;
+  margin-right: 0;
 }
 .my-50 {
   margin-top: 50px;
@@ -274,6 +282,10 @@ body.sidebar-close .main {
 
 .pa-10 {
   padding: 10px;
+}
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
 }
 .px-10 {
   padding-left: 10px;
@@ -551,4 +563,11 @@ body.sidebar-close .main {
 .card-columns .card {
   display: inline-block;
   width: 100%;
+}
+
+/* atelier */
+/* profile-task */
+.project-task .task-panel {
+  background-color: #fff;
+  padding: 10px;
 }

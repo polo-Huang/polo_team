@@ -13,6 +13,7 @@
 
 Auth::routes();
 
+Route::get('/test', 'HomeController@test');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/user/{id}', 'HomeController@user');
 
@@ -25,6 +26,11 @@ Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {
     Route::get('/project/form/{id?}', 'Atelier\ProjectController@form');
     Route::post('/project/submit', 'Atelier\ProjectController@submit');
     Route::get('/project/details/{id}', 'Atelier\ProjectController@details');
+    Route::get('/project/tasks/{projectId}', 'Atelier\ProjectController@tasks');
+    Route::get('/project/taskForm/{projectId}/{taskId?}', 'Atelier\ProjectController@taskForm');
+    Route::post('/project/submitTask/', 'Atelier\ProjectController@submitTask');
+    Route::get('/project/task/{id}', 'Atelier\ProjectController@task');
+    Route::post('/project/changeTaskStatus', 'Atelier\ProjectController@changeTaskStatus');
 
     Route::get('/game/test/{id}', 'Atelier\GameController@test');
     Route::post('/game/submit', 'Atelier\GameController@submit');

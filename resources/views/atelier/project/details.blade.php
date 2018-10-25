@@ -24,6 +24,7 @@
 <div class="inside project-list">
 	<section>
 		<ol class="action-btn-group">
+			<li><a href="{{ url('/atelier/project/tasks/'.$project->id) }}">任务</a></li>
 			<li><a href="{{ url('/atelier/project/form/'.$project->id) }}">编辑</a></li>
 			<li><a href="javascript:void(0);">工作时长</a></li>
 		</ol>
