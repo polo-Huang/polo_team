@@ -54,7 +54,7 @@ class ProjectController extends Controller
         $project = Project::find($projectId);
         if ($project == null)
             return view('/atelier/cannotAccess', ['error' => 'NOTFOUND']);
-        $tasks = $project->tasks;
+        $tasks = $project->tasks()->orderBy('id', 'desc')->get();
         return view('/atelier/project/tasks', ['project' => $project, 'tasks' => $tasks]);
     }
 
@@ -76,7 +76,7 @@ class ProjectController extends Controller
             'title' => 'required',
             'type' => 'required|in:bug,feature',
             'priority' => 'required|in:low,normal,high',
-            'working_hours' => 'nullable|integer',
+            'working_hours' => 'nullable',
         ];
         if ($request->get('task_id') != null) {
             $rules['task_id'] = 'required|exists:project_tasks,id';
@@ -103,6 +103,7 @@ class ProjectController extends Controller
             if ($request->get('start_date') == null) {
                 $task->start_date = $data['start_date'];
             }
+            $task->working_hours = $data['working_hours'];
             $task->save();
         }
         return redirect('/atelier/project/task/'.$task->id);
@@ -124,6 +125,16 @@ class ProjectController extends Controller
             return json_encode(['success' => false, 'error' => trans('errors.PARAMETERS_ERROR')]);
         $task->status = $status;
         $task->save();
+        return json_encode(['success' => true]);
+    }
+
+    public function deleteTask(Request $request)
+    {
+        $status = $request->get('status');
+        $task = ProjectTask::find($request->get('id'));
+        if ($task == null) 
+            return json_encode(['success' => false, 'error' => trans('errors.PARAMETERS_ERROR')]);
+        $task->delete();
         return json_encode(['success' => true]);
     }
 }

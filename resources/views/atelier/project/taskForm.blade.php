@@ -5,11 +5,12 @@
 @endsection
 
 @section('link')
-
+  <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-datetimepicker.min.css') }}">
 @endsection
 
 @section('after_link')
-
+  <script src="{{ asset('bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
+  <script src="{{ asset('js/atelier/project/taskForm.js') }}"></script>
 @endsection
 
 @section('content')
@@ -19,6 +20,9 @@
   <li><a href="{{ url('/atelier/project/list') }}">项目</a></li>
   <li><a href="{{ url('/atelier/project/details/'.$project->id) }}">{{ $project->name }}</a></li>
   <li><a href="{{ url('/atelier/project/tasks/'.$project->id) }}">任务</a></li>
+  @if ($task != null)
+  <li><a href="{{ url('/atelier/project/task/'.$task->id) }}">#{{ $task->id }}</a></li>
+  @endif
   <li class="active">{{ $task == null ? '添加' : '编辑' }}任务</li>
 </ol>
 </section>
@@ -94,19 +98,19 @@
             </div>
           </div>
           <div class="col-sm-6">
-            <div class="form-group row @if($errors->has('start_date')) has-error @endif">
+            <div class="form-group row">
               <label class="col-sm-4 text-right form-label">开始日期</label>
               <div class="col-sm-8">
-                {!! Form::number('start_date', $task == null ? null : $task->start_date, ['class' => 'form-control', 'step' => '0.5', 'min' => '0.5']) !!}
-                @if ($errors->has('working_hours'))
-                  <p class="help-block">{{ $errors->first('start_date') }}</p>
-                @endif
+                {!! Form::text('start_date', $task == null ? null : date('Y-m-d', strtotime($task->start_date)), ['class' => 'form-control']) !!}
               </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row @if($errors->has('working_hours')) has-error @endif">
               <label class="col-sm-4 text-right form-label">工作时长 (h)</label>
               <div class="col-sm-8">
-                {!! Form::number('working_hours', $task == null ? null : $task->working_hours, ['class' => 'form-control']) !!}
+                {!! Form::number('working_hours', $task == null ? null : $task->working_hours, ['class' => 'form-control', 'step' => '0.5', 'min' => '0.5']) !!}
+                @if ($errors->has('working_hours'))
+                  <p class="help-block">{{ $errors->first('working_hours') }}</p>
+                @endif
               </div>
             </div>
           </div>

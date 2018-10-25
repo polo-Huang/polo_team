@@ -31,6 +31,7 @@ Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {
     Route::post('/project/submitTask/', 'Atelier\ProjectController@submitTask');
     Route::get('/project/task/{id}', 'Atelier\ProjectController@task');
     Route::post('/project/changeTaskStatus', 'Atelier\ProjectController@changeTaskStatus');
+    Route::post('/project/deleteTask', 'Atelier\ProjectController@deleteTask');
 
     Route::get('/game/test/{id}', 'Atelier\GameController@test');
     Route::post('/game/submit', 'Atelier\GameController@submit');

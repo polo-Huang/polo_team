@@ -32,19 +32,38 @@
 	<h4 class="mb-20">项目</h4>
 
 	<div>
-		@if (count($tasks) > 0)
-		<div>
-			<dl>
-				@foreach ($tasks as $key => $task)
-				<dd><a class="a-project" href="{{ url('/atelier/project/task/'.$task->id) }}">{{ $task->title }}</a></dd>
-				@endforeach
-			</dl>
-		</div>
-		@else
-		<div>
-			<p class="help-block">没有任务</p>
-		</div>
-		@endif
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>分类</th>
+					<th>状态</th>
+					<th>优先级</th>
+					<th>标题</th>
+					<th>指派给</th>
+					<th>更新于</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (count($tasks) > 0)
+					@foreach ($tasks as $key => $task)
+					<tr>
+						<td>{{ $task->id }}</td>
+						<td>{{ $task->type }}</td>
+						<td>{{ trans('options.task_status_'.$task->status) }}</td>
+						<td>{{ trans('options.task_priority_'.$task->priority) }}</td>
+						<td><a href="{{ url('/atelier/project/task/'.$task->id) }}">{{ $task->title }}</a></td>
+						<td>{{ $task->receiver->name }}</td>
+						<td>{{ $task->updated_at }}</td>
+					</tr>
+					@endforeach
+				@else
+					<tr>
+						<p class="help-block">没有任务</p>
+					</tr>
+				@endif
+			</tbody>
+		</table>
 	</div>
 </div>
 @endsection

@@ -570,4 +570,5 @@ body.sidebar-close .main {
 .project-task .task-panel {
   background-color: #fff;
   padding: 10px;
+  min-height: 400px;
 }

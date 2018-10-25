@@ -24,7 +24,9 @@
 </section>
 
 <div class="inside project-task">
-	<input type="hidden" name="id" value="{{ $task->id }}">
+	<input type="hidden" name="confirm_transferred" value="确认删除任务#{{ $task->id }}？">
+	<input type="hidden" name="task_id" value="{{ $task->id }}">
+	<input type="hidden" name="project_id" value="{{ $task->project_id }}">
 	<section>
 		<ol class="action-btn-group">
 			@if ($task->status != 'new')
@@ -37,7 +39,7 @@
 			<li><a class="change-status-btn" status="resolved" href="javascript:void(0);">已解决</a></li>
 			@endif
 			<li><a href="{{ url('/atelier/project/taskForm/'.$task->project_id.'/'.$task->id) }}">编辑</a></li>
-			<li><a href="javescript:void(0);">删除</a></li>
+			<li><a class="delete-btn" href="javescript:void(0);">删除</a></li>
 		</ol>
 	</section>
 	<h3 class="mb-20">{{ ucwords($task->type) }}&nbsp;#{{ $task->id }}</h4>
@@ -67,7 +69,7 @@
 			</div>
 		</div>
 		<hr>
-		<div>
+		<div class="min-hight-200">
 			<label>详情:</label><br>
 			{{ $task->details }}
 		</div>
