@@ -60,7 +60,7 @@
             <div class="form-group row @if($errors->has('type')) has-error @endif">
               <label class="col-sm-4 text-right form-label"><i class="i-required">*</i>类型</label>
               <div class="col-sm-8">
-                {!! Form::select('type', ['feature' => 'Feature', 'bug' => 'Bug'], $task == null ? null : $task->type, ['class' => 'form-control']) !!}
+                {!! Form::select('type', getProjectTaskTypeArray(), $task == null ? null : $task->type, ['class' => 'form-control']) !!}
                 @if ($errors->has('type'))
                   <p class="help-block">{{ $errors->first('type') }}</p>
                 @endif
@@ -71,7 +71,7 @@
             <div class="form-group row @if($errors->has('priority')) has-error @endif">
               <label class="col-sm-4 text-right form-label"><i class="i-required">*</i>优先级</label>
               <div class="col-sm-8">
-                {!! Form::select('priority', ['normal' => 'Normal (普通)', 'low' => 'Low (低)', 'high' => 'High (高)'], $task == null ? null : $task->type, ['class' => 'form-control']) !!}
+                {!! Form::select('priority', getProjectTaskPriorityArray(), $task == null ? null : $task->type, ['class' => 'form-control']) !!}
                 @if ($errors->has('priority'))
                   <p class="help-block">{{ $errors->first('priority') }}</p>
                 @endif
