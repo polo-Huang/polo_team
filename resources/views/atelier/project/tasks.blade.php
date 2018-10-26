@@ -9,7 +9,8 @@
 @endsection
 
 @section('after_link')
-
+  <script src="{{ asset('tablesorter/jquery.tablesorter.js') }}"></script>
+	<script src="{{ asset('/js/atelier/project/tasks.js') }}"></script>
 @endsection
 
 @section('content')
@@ -17,16 +18,16 @@
 <ol class="breadcrumb">
   <li><a href="{{ url('/atelier/index') }}">工作室</a></li>
   <li><a href="{{ url('/atelier/project/list') }}">项目</a></li>
-  <li><a href="{{ url('/atelier/project/details/'.$project->id) }}">{{ $project->name }}</a></li>
-  <li class="active">任务</li>
+  <li class="active">{{ $project->name }}</li>
 </ol>
 </section>
 
 <div class="inside project-list">
 	<section>
 		<ol class="action-btn-group">
+			<li><a href="{{ url('/atelier/project/tasks/'.$project->id) }}">任务</a></li>
+			<li><a href="{{ url('/atelier/project/details/'.$project->id) }}">详情</a></li>
 			<li><a href="{{ url('/atelier/project/taskForm/'.$project->id) }}">添加任务</a></li>
-			<li><a href="javascript:void(0);">工作时长</a></li>
 		</ol>
 	</section>
 	<h4 class="mb-20">项目</h4>
@@ -35,13 +36,14 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>分类</th>
-					<th>状态</th>
-					<th>优先级</th>
+					<th class="thSort @if($searchData['sort'] == 'id'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=id&order='.($searchData['sort'] == 'id' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">#</a></th>
+					<th class="thSort @if($searchData['sort'] == 'type'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=type&order='.($searchData['sort'] == 'type' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">分类</a></th>
+					<th class="thSort @if($searchData['sort'] == 'status'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=status&order='.($searchData['sort'] == 'status' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">状态</a></th>
+					<th class="thSort @if($searchData['sort'] == 'priority'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=priority&order='.($searchData['sort'] == 'priority' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">优先级</a></th>
 					<th>标题</th>
-					<th>指派给</th>
-					<th>更新于</th>
+					<th class="thSort @if($searchData['sort'] == 'receiver_id'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=receiver_id&order='.($searchData['sort'] == 'receiver_id' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">指派给</a></th>
+					<th class="thSort @if($searchData['sort'] == 'start_date'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=start_date&order='.($searchData['sort'] == 'start_date' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">开始日期</a></th>
+					<th class="thSort @if($searchData['sort'] == 'updated_at'){{ $searchData['order'] }}@endif"><a href="{{ url('/atelier/project/tasks/'.$project->id.'?sort=updated_at&order='.($searchData['sort'] == 'updated_at' ? ($searchData['order'] == 'desc' ? 'asc' : 'desc') : 'desc')) }}">更新于</a></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,13 +55,14 @@
 						<td>{{ trans('options.task_status_'.$task->status) }}</td>
 						<td>{{ trans('options.task_priority_'.$task->priority) }}</td>
 						<td><a href="{{ url('/atelier/project/task/'.$task->id) }}">{{ $task->title }}</a></td>
-						<td>{{ $task->receiver->name }}</td>
+						<td>{{ $task->receiver_id != null ? $task->receiver->name : '' }}</td>
+						<td>{{ date('Y-m-d', strtotime($task->start_date)) }}</td>
 						<td>{{ $task->updated_at }}</td>
 					</tr>
 					@endforeach
 				@else
 					<tr>
-						<td colspan="7">没有任务</td>
+						<td colspan="8">没有任务</td>
 					</tr>
 				@endif
 			</tbody>

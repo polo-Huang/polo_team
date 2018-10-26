@@ -62,8 +62,8 @@
     <div class="sidebar">
       <div>
         <ul class="sidebar-ul">
-          <li><a href="{{ url('/atelier/index') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'index') class="active" @endif><span class="icon"><i class="fa fa-gears"></i></span> 工作室</a></li>
-          <li><a href="{{ url('/atelier/project/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'project') class="active" @endif><span class="icon"><i class="fa fa-shopping-cart"></i></span> 项目</a></li>
+          <li><a href="{{ url('/atelier/index') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'index') class="active" @endif><span class="icon"><i class="fa fa-group"></i></span> 工作室</a></li>
+          <li><a href="{{ url('/atelier/project/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'project') class="active" @endif><span class="icon"><i class="fa fa-code"></i></span> 项目</a></li>
           @if (Auth::user()->is_admin)
           <li><a href="{{ url('/admin/home/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'home') class="active" @endif><span class="icon"><i class="fa fa-home"></i></span> 个人主页</a></li>
           <li><a href="{{ url('/admin/image/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'image') class="active" @endif><span class="icon"><i class="fa fa-image"></i></span> 图片</a></li>

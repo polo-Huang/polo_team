@@ -17,9 +17,8 @@
 <ol class="breadcrumb">
   <li><a href="{{ url('/atelier/index') }}">工作室</a></li>
   <li><a href="{{ url('/atelier/project/list') }}">项目</a></li>
-  <li><a href="{{ url('/atelier/project/details/'.$task->project_id) }}">{{ $task->project->name }}</a></li>
-  <li><a href="{{ url('/atelier/project/tasks/'.$task->project_id) }}">任务</a></li>
-  <li class="active">{{ $task->name }}</li>
+  <li><a href="{{ url('/atelier/project/tasks/'.$task->project_id) }}">{{ $task->project->name }}</a></li>
+  <li class="active">#{{ $task->id }}</li>
 </ol>
 </section>
 
@@ -29,7 +28,7 @@
 	<input type="hidden" name="project_id" value="{{ $task->project_id }}">
 	<section>
 		<ol class="action-btn-group">
-  		<li><a href="{{ url('/atelier/project/tasks/'.$task->project_id) }}">任务</a></li>
+  			<li><a href="{{ url('/atelier/project/tasks/'.$task->project_id) }}">任务</a></li>
 			@if ($task->status != 'new')
 			<li><a class="change-status-btn" status="new" href="javascript:void(0);">新的</a></li>
 			@endif
@@ -43,7 +42,7 @@
 			<li><a class="delete-btn" href="javescript:void(0);">删除</a></li>
 		</ol>
 	</section>
-	<h3 class="mb-20">{{ ucwords($task->type) }}&nbsp;#{{ $task->id }}</h4>
+	<h3 class="mt-0 mb-20">{{ ucwords($task->type) }}&nbsp;#{{ $task->id }}</h4>
 
 	<div class="task-panel">
 		<h4>{{ $task->title }}</h4>
@@ -57,8 +56,10 @@
 				<p class="col-xs-8">{{ trans('options.task_status_'.$task->status) }}</p>
 				<label class="col-xs-4 col-md-3 px-0">优先级:</label>
 				<p class="col-xs-8">{{ trans('options.task_priority_'.$task->priority) }}</p>
-				<label class="col-xs-4 col-md-3 px-0">指派给:</label>
-				<p class="col-xs-8">{{ $task->receiver->name }}</p>
+				@if ($task->receiver_id != null)
+					<label class="col-xs-4 col-md-3 px-0">指派给:</label>
+					<p class="col-xs-8">{{ $task->receiver->name }}</p>
+				@endif
 			</div>
 			<div class="col-xs-6 px-0">
 				<label class="col-xs-4 col-md-3 px-0">开始时间:</label>
@@ -72,7 +73,7 @@
 		<hr>
 		<div class="min-hight-200">
 			<label>详情:</label><br>
-			{{ $task->details }}
+			{!! $task->details !!}
 		</div>
 	</div>
 </div>

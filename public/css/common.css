@@ -32,6 +32,29 @@
   }
 }
 
+/* 插件 */
+/* tablesorter */
+.headerSortDown:after {
+  content: " \25B2";
+  color: #428bca;
+}
+.headerSortUp:after {
+  content: " \25BC";
+  color: #428bca;
+}
+
+/* 排序 */
+.thSort a {
+  color: initial;
+}
+.thSort.desc:after {
+  content: " \25BC";
+  color: #428bca;
+}
+.thSort.asc:after {
+  content: " \25B2";
+  color: #428bca;
+}
 /* 标签 */
 body {
   background-color: #f5f5fa;
@@ -179,7 +202,8 @@ body.sidebar-close .main {
   min-width: 300px;
 }
 .main .inside {
-  /*padding: 20px;*/
+  /*display: grid;*/
+  /*padding-top: 20px;*/
   border-radius: 3px;
   /*background-color: #fff;*/
 }
@@ -260,6 +284,9 @@ body.sidebar-close .main {
 }
 .mr-10 {
   margin-right: 10px;
+}
+.mr-20 {
+  margin-right: 20px; 
 }
 .mb-0 {
   margin-bottom: 0 !important;

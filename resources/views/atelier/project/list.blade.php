@@ -34,7 +34,7 @@
 		<div>
 			<dl>
 				@foreach ($projects as $key => $project)
-				<dd><a class="a-project" href="{{ url('/atelier/project/details/'.$project->id) }}">{{ $project->name }}</a></dd>
+				<dd><a class="a-project" href="{{ url('/atelier/project/tasks/'.$project->id) }}">{{ $project->name }}</a></dd>
 				@endforeach
 			</dl>
 		</div>

@@ -6,11 +6,13 @@
 
 @section('link')
   <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-datetimepicker.min.css') }}">
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet"> 
 @endsection
 
 @section('after_link')
   <script src="{{ asset('bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ asset('js/atelier/project/taskForm.js') }}"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
 @endsection
 
 @section('content')
@@ -28,19 +30,14 @@
 </section>
 
 <div class="inside project-list">
-	<!-- <section>
-		<ol class="action-btn-group">
-			<li><a href="{{ url('/atelier/project/projectForm') }}">添加项目</a></li>
-			<li><a href="javascript:void(0);">工作时长</a></li>
-		</ol>
-	</section> -->
+	
 
 	<div class="card card-white mb-20-imp">
 	  <div class="card-header">
 	    <h4 class="px-10">{{ $task == null ? '添加' : '编辑' }}任务</h4>
 	  </div>
 	  <div class="card-block">
-	  	{!! Form::open(['method' => 'post', 'action' => 'Atelier\ProjectController@submitTask']) !!}
+	  	{!! Form::open(['method' => 'post', 'action' => 'Atelier\ProjectController@submitTask', 'files' => 'true']) !!}
         {!! Form::hidden('project_id', $project->id) !!}
         {!! Form::hidden('task_id', $task == null ? null : $task->id) !!}
         @if ($errors->has('task_id'))
@@ -82,15 +79,15 @@
         <div class="form-group row">
           <label class="col-sm-2 text-right form-label">详情</label>
           <div class="col-sm-10">
-            {!! Form::textarea('details', $task == null ? null : $task->details, ['class' => 'form-control']) !!}
+            {!! Form::textarea('details', $task == null ? null : $task->details, ['id' => 'summernote', 'class' => 'form-control']) !!}
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group row @if($errors->has('receiver_id')) has-error @endif">
-              <label class="col-sm-4 text-right form-label"><i class="i-required">*</i>指派给</label>
+              <label class="col-sm-4 text-right form-label">指派给</label>
               <div class="col-sm-8">
-                {!! Form::select('receiver_id', getUserArray(), $task == null ? null : $task->receiver_id, ['class' => 'form-control']) !!}
+                {!! Form::select('receiver_id', getUserArray(), $task == null ? null : $task->receiver_id, ['class' => 'form-control', 'placeholder' => '选择成员']) !!}
                 @if ($errors->has('receiver_id'))
                   <p class="help-block">{{ $errors->first('receiver_id') }}</p>
                 @endif
@@ -116,6 +113,7 @@
           </div>
         </div>
         <div class="pull-right">
+          <a class="btn btn-default mr-10" href="javascript:history.back(-1);">返回</a>
           <input type="submit" value="提交" class="btn btn-success">
         </div>
       {!! Form::close() !!}

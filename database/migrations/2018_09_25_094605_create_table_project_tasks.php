@@ -25,7 +25,7 @@ class CreateTableProjectTasks extends Migration
             $table->string('status')->default('new');
             // low,normal,high
             $table->string('priority')->default('normal');
-            $table->text('details')->nullable();
+            $table->longText('details')->nullable();
             $table->float('working_hours')->nullable();
             $table->timestamps();
         });

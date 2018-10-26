@@ -10,4 +10,6 @@ $(document).ready(function() {
         minView: 2,
         forceParse: 0
     });
+
+    $('#summernote').summernote({height: 300,});
 });

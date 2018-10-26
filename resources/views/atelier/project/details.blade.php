@@ -17,7 +17,8 @@
 <ol class="breadcrumb">
   <li><a href="{{ url('/atelier/index') }}">工作室</a></li>
   <li><a href="{{ url('/atelier/project/list') }}">项目</a></li>
-  <li class="active">{{ $project->name }}</li>
+  <li><a href="{{ url('/atelier/project/tasks/'.$project->id) }}">{{ $project->name }}</a></li>
+  <li class="active">详情</li>
 </ol>
 </section>
 
@@ -26,7 +27,6 @@
 		<ol class="action-btn-group">
 			<li><a href="{{ url('/atelier/project/tasks/'.$project->id) }}">任务</a></li>
 			<li><a href="{{ url('/atelier/project/form/'.$project->id) }}">编辑</a></li>
-			<li><a href="javascript:void(0);">工作时长</a></li>
 		</ol>
 	</section>
 	<h4 class="mb-20">{{ $project->name }}</h4>

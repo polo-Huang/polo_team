@@ -8,6 +8,7 @@ use App\Project;
 use App\ProjectTask;
 use Validator;
 use Auth;
+use Schema;
 
 class ProjectController extends Controller
 {
@@ -49,14 +50,25 @@ class ProjectController extends Controller
     	return view('/atelier/project/details', ['project' => $project]);
     }
 
-    public function tasks($projectId)
+    public function tasks(Request $request, $projectId)
     {
         $project = Project::find($projectId);
         if ($project == null)
             return view('/atelier/cannotAccess', ['error' => 'NOTFOUND']);
-        $count = 9;
-        $tasks = $project->tasks()->orderBy('id', 'desc')->paginate($count);
-        return view('/atelier/project/tasks', ['project' => $project, 'tasks' => $tasks]);
+        $searchData = [];
+        $searchData['sort'] = $request->get('sort') == null ? 'start_date' : $request->get('sort');
+        if (!Schema::hasColumn('project_tasks', $searchData['sort']))
+            return view('/atelier/cannotAccess', ['error' => 'PARAMETERS_ERROR']);
+        $searchData['columnCount'] = $request->get('columnCount') == null ? 9 : $request->get('columnCount');
+        $searchData['order'] = $request->get('order') == null ? 'asc' : $request->get('order');
+        $query = $project->tasks();
+        // dd($searchData['order']);
+        // 默认排序组合
+        if ($request->get('sort') == null) {
+            $query = $query->orderBy('status', 'asc');
+        }
+        $tasks = $query->orderBy($searchData['sort'], $searchData['order'])->paginate($searchData['columnCount']);
+        return view('/atelier/project/tasks', ['project' => $project, 'tasks' => $tasks, 'searchData' => $searchData]);
     }
 
     public function taskForm($projectId, $taskId = null)
@@ -97,11 +109,12 @@ class ProjectController extends Controller
             $task = ProjectTask::create($data);
         } else {
             $task = ProjectTask::find($data['task_id']);
+            $task->receiver_id = $data['receiver_id'];
             $task->title = $data['title'];
             $task->type = $data['type'];
             $task->priority = $data['priority'];
             $task->details = $data['details'];
-            if ($request->get('start_date') == null) {
+            if ($request->get('start_date') != null) {
                 $task->start_date = $data['start_date'];
             }
             $task->working_hours = $data['working_hours'];
