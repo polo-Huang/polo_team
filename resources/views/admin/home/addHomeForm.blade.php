@@ -21,7 +21,7 @@
 </ol>
 </section>
 <div class="inside home-details">
-  <div class="card card-white mb-20-imp">
+  <div class="card card-white mb-20-ipt">
     <div class="card-header">
       <h4 class="px-10">新的个人主页</h4>
     </div>

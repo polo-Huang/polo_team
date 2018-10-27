@@ -56,7 +56,7 @@
 						<td>{{ trans('options.task_priority_'.$task->priority) }}</td>
 						<td><a href="{{ url('/atelier/project/task/'.$task->id) }}">{{ $task->title }}</a></td>
 						<td>{{ $task->receiver_id != null ? $task->receiver->name : '' }}</td>
-						<td>{{ date('Y-m-d', strtotime($task->start_date)) }}</td>
+						<td>{{ $task->start_date != null ? date('Y-m-d', strtotime($task->start_date)) : null }}</td>
 						<td>{{ $task->updated_at }}</td>
 					</tr>
 					@endforeach
@@ -67,7 +67,7 @@
 				@endif
 			</tbody>
 		</table>
-		<div class="card-footer text-right">{!! $tasks->links() !!}</div>
+		<div class="card-footer text-right">{!! $tasks->appends($searchData)->links() !!}</div>
 	</div>
 </div>
 @endsection

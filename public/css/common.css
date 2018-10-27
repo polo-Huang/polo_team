@@ -273,6 +273,9 @@ body.sidebar-close .main {
 .mt-10 {
   margin-top: 10px;
 }
+.mt-20 {
+  margin-top: 20px;
+}
 .mt-50 {
   margin-top: 50px;
 }
@@ -289,6 +292,9 @@ body.sidebar-close .main {
   margin-right: 20px; 
 }
 .mb-0 {
+  margin-bottom: 0;
+}
+.mb-0-ipt {
   margin-bottom: 0 !important;
 }
 .mb-10 {
@@ -300,7 +306,7 @@ body.sidebar-close .main {
 .mb-30 {
   margin-bottom: 30px;
 }
-.mb-20-imp {
+.mb-20-ipt {
   margin-bottom: 20px !important;
 }
 .ml-10 {

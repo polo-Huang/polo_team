@@ -98,7 +98,7 @@
             <div class="form-group row">
               <label class="col-sm-4 text-right form-label">开始日期</label>
               <div class="col-sm-8">
-                {!! Form::text('start_date', $task == null ? null : date('Y-m-d', strtotime($task->start_date)), ['class' => 'form-control']) !!}
+                {!! Form::text('start_date', $task == null || $task->start_date == null ? null : date('Y-m-d', strtotime($task->start_date)), ['class' => 'form-control', 'autocomplete' => 'off']) !!}
               </div>
             </div>
             <div class="form-group row @if($errors->has('working_hours')) has-error @endif">

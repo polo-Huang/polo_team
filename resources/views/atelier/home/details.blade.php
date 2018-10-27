@@ -21,7 +21,7 @@
 </ol>
 </section>
 <div class="inside home-details">
-  <div class="card card-white mb-20-imp">
+  <div class="card card-white mb-20-ipt">
     <div class="card-header">
       <h4 class="px-10">{{ $home->user_id == null ? '团队主页' : $home->name.' 的主页' }}<a href="{{ url('/'.$home->user_id) }}" class="float-right">查看主页</a></h4>
     </div>

@@ -29,7 +29,7 @@
 		</ol>
 	</section> -->
 
-	<div class="card card-white mb-20-imp">
+	<div class="card card-white mb-20-ipt">
 	  <div class="card-header">
 	    <h4 class="px-10">{{ $project == null ? '添加' : '编辑' }}项目</h4>
 	  </div>

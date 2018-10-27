@@ -55,19 +55,21 @@ class ProjectController extends Controller
         $project = Project::find($projectId);
         if ($project == null)
             return view('/atelier/cannotAccess', ['error' => 'NOTFOUND']);
-        $searchData = [];
-        $searchData['sort'] = $request->get('sort') == null ? 'start_date' : $request->get('sort');
-        if (!Schema::hasColumn('project_tasks', $searchData['sort']))
-            return view('/atelier/cannotAccess', ['error' => 'PARAMETERS_ERROR']);
-        $searchData['columnCount'] = $request->get('columnCount') == null ? 9 : $request->get('columnCount');
-        $searchData['order'] = $request->get('order') == null ? 'asc' : $request->get('order');
         $query = $project->tasks();
-        // dd($searchData['order']);
+        $searchData = [];
         // 默认排序组合
-        if ($request->get('sort') == null) {
-            $query = $query->orderBy('status', 'asc');
+        $searchData['sort'] = $request->get('sort');
+        $searchData['order'] = $request->get('order');
+        // dd($searchData['sort']);
+        if ($searchData['sort'] == null) {
+            $query = $query->orderBy('status', 'asc')->orderBy('start_date', 'asc');
+        } else {
+            if (!Schema::hasColumn('project_tasks', $searchData['sort']))
+                return view('/atelier/cannotAccess', ['error' => 'PARAMETERS_ERROR']);
+            $query = $query->orderBy($searchData['sort'], $searchData['order']);
         }
-        $tasks = $query->orderBy($searchData['sort'], $searchData['order'])->paginate($searchData['columnCount']);
+        $searchData['columnCount'] = $request->get('columnCount') == null ? 9 : $request->get('columnCount');
+        $tasks = $query->paginate($searchData['columnCount']);
         return view('/atelier/project/tasks', ['project' => $project, 'tasks' => $tasks, 'searchData' => $searchData]);
     }
 
@@ -103,9 +105,6 @@ class ProjectController extends Controller
         }
         if ($request->get('task_id') == null) {
             $data['creater_id'] = Auth::id();
-            if ($request->get('start_date') == null) {
-                $data['start_date'] = date('Y-m-d', time());
-            }
             $task = ProjectTask::create($data);
         } else {
             $task = ProjectTask::find($data['task_id']);
@@ -114,9 +113,7 @@ class ProjectController extends Controller
             $task->type = $data['type'];
             $task->priority = $data['priority'];
             $task->details = $data['details'];
-            if ($request->get('start_date') != null) {
-                $task->start_date = $data['start_date'];
-            }
+            $task->start_date = $data['start_date'];
             $task->working_hours = $data['working_hours'];
             $task->save();
         }
@@ -140,6 +137,18 @@ class ProjectController extends Controller
         $task->status = $status;
         $task->save();
         return json_encode(['success' => true]);
+    }
+
+    public function changeStartDate(Request $request)
+    {
+        $id = $request->get('task_id');
+        $task = ProjectTask::find($id);
+        if ($task == null) 
+            return json_encode(['success' => false, 'error' => trans('errors.PARAMETERS_ERROR')]);
+        $startDate = $request->get('start_date');
+        $task->start_date = $startDate;
+        $task->save();
+        return redirect('/atelier/project/task/'.$id);
     }
 
     public function deleteTask(Request $request)
