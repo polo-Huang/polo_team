@@ -5,11 +5,12 @@
 @endsection
 
 @section('link')
-
+  <link rel="stylesheet" href="{{ asset('select2/css/select2.min.css') }}">
 @endsection
 
 @section('after_link')
-
+  <script src="{{ asset('select2/js/select2.min.js') }}"></script>
+  <script src="{{ asset('js/atelier/project/form.js') }}"></script>
 @endsection
 
 @section('content')
@@ -35,6 +36,7 @@
 	  </div>
 	  <div class="card-block">
 	  	{!! Form::open(['method' => 'post', 'action' => 'Atelier\ProjectController@submit']) !!}
+        {!! Form::hidden('id', $project == null ? null : $project->id) !!}
         <div class="form-group row @if($errors->has('name')) has-error @endif">
           <label class="col-sm-2 text-right"><span><i class="i-required">*</i></span>项目名</label>
           <div class="col-sm-10">
@@ -54,9 +56,18 @@
           <label class="col-sm-2 text-right">连接</label>
           <div class="col-sm-10">
             {!! Form::text('url', $project == null ? null : $project->url, ['class' => 'form-control']) !!}
-	          @if ($errors->has('url'))
-	            <p class="help-block">{{ $errors->first('url') }}</p>
-	          @endif
+            @if ($errors->has('url'))
+              <p class="help-block">{{ $errors->first('url') }}</p>
+            @endif
+          </div>
+        </div>
+        <div class="form-group row @if($errors->has('members')) has-error @endif">
+          <label class="col-sm-2 text-right">成员</label>
+          <div class="col-sm-10">
+            {!! Form::select('members', getUserArray('exceptOwn'), null, ['id' => 'select2-members', 'class' => 'form-control', 'multiple' => 'multiple', 'data-tags' => ($members != null ? 'true' : 'false'), 'data-data' => ($members != null ? $members : ''), 'data-index' => $membersIndex]) !!}
+            @if ($errors->has('members'))
+              <p class="help-block">{{ $errors->first('members') }}</p>
+            @endif
           </div>
         </div>
         <div class="pull-right">

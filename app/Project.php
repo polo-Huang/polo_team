@@ -14,4 +14,9 @@ class Project extends Model
     {
     	return $this->hasMany('App\ProjectTask');
     }
+
+    public function members()
+    {
+    	return $this->hasMany('App\ProjectMember');
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Project;
 use App\ProjectTask;
+use App\ProjectMember;
 use Validator;
 use Auth;
 use Schema;
@@ -21,15 +22,34 @@ class ProjectController extends Controller
     public function form($id = null)
     {
     	$project = Project::find($id);
-    	return view('/atelier/project/form', ['project' => $project]);
+        $members = [];
+        $membersIndex = '';
+        $projectMembers = $project->members()->where('role', '<>', 'creater')->get();
+        foreach ($projectMembers as $key => $member) {
+            array_push($members, ['id' => $member->user_id, 'text' => $member->user->name]);
+            if ($projectMembers->count() == $key+1) {
+                $membersIndex .= $member->user_id;
+            } else {
+                $membersIndex .= $member->user_id.',';
+            }
+        }
+        // dd(json_encode($members));
+    	return view('/atelier/project/form', ['project' => $project, 'members' => json_encode($members), 'membersIndex' => $membersIndex]);
     }
 
     public function submit(Request $request)
     {
     	$data = $request->all();
     	// dd($data);
-    	$rules = ['name' => 'required', 'url' => 'nullable|url'];
+    	$rules = [
+            'id' => 'nullable|exists:projects,id',
+            'name' => 'required',
+            'url' => 'nullable|url',
+        ];
     	$validator = Validator::make($data, $rules);
+        // dd($request->get('members'));
+        $members = array_filter(array_unique(explode(',', $request->get('members'))));
+        // dd($members);
     	if ($validator->fails()) {
     		return redirect()
     		->back()
@@ -37,8 +57,34 @@ class ProjectController extends Controller
     		->withErrors($validator->errors());
     	}
 
-    	$data['creater_id'] = Auth::id();
-    	$project = Project::create($data);
+        if ($data['id'] != null) {
+            $project = Project::find($data['id']);
+            $project->name = $data['name'];
+            $project->introduce = $data['introduce'];
+            $project->url = $data['url'];
+            $project->save();
+            // 删除成员
+            ProjectMember::where('role', '<>', 'creater')->where('project_id', $project->id)->delete();
+        } else {
+            $data['creater_id'] = Auth::id();
+            $project = Project::create($data);
+            // 创建时增加一个创建者成员
+            ProjectMember::create([
+                'user_id' => $data['creater_id'],
+                'project_id' => $project->id,
+                'role' => 'creater',
+                'join_date' => date('Y-m-d h:i:s', time()),
+            ]);
+        }
+        // 加入成员
+        foreach ($members as $key => $userId) {
+            // dd($userId);
+            ProjectMember::create([
+                'user_id' => $userId,
+                'project_id' => $project->id,
+                'join_date' => date('Y-m-d h:i:s', time()),
+            ]);
+        }
     	return redirect('/atelier/project/details/'.$project->id);
     }
 

@@ -1,9 +1,14 @@
 <?php
     use App\User;
 
-    function getUserArray()
+    function getUserArray($type = null)
     {
-    	$users = User::where('status', 'active')->get();
+    	$userQuery = User::where('status', 'active');
+        // 除了自己
+        if ($type == 'exceptOwn') {
+            $userQuery = $userQuery->where('id', '<>', Auth::id());
+        }
+        $users = $userQuery->get();
     	$userArray = [];
     	foreach ($users as $key => $user) {
     		$userArray[$user->id] = $user->name;
