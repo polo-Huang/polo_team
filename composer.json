@@ -29,7 +29,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/selectOptions.php"
+            "app/Helpers/selectOptions.php",
+            "app/Helpers/common.php"
         ]
     },
     "autoload-dev": {

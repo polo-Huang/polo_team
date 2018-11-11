@@ -21,18 +21,29 @@ Route::get('/user/{id}', 'HomeController@user');
 Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {
     Route::get('/index', 'Atelier\HomeController@index');
     Route::get('/user/details/{id}', 'Atelier\HomeController@details');
+    
+    Route::group(['middleware' => ['checkOut']], function() {
+        Route::get('/clock/checkInView', 'Atelier\ClockController@checkInView');
+        Route::post('/clock/checkIn', 'Atelier\ClockController@checkIn');
+        Route::get('/clock/checkOutSuccess', 'Atelier\ClockController@checkOutSuccess');
+    });
+    Route::group(['middleware' => ['checkIn']], function() {
+        Route::get('/clock/checkInSuccess', 'Atelier\ClockController@checkInSuccess');
+        Route::get('/clock/checkOutView', 'Atelier\ClockController@checkOutView');
+        Route::post('/clock/checkOut', 'Atelier\ClockController@checkOut');
 
-    Route::get('/project/list', 'Atelier\ProjectController@list');
-    Route::get('/project/form/{id?}', 'Atelier\ProjectController@form');
-    Route::post('/project/submit', 'Atelier\ProjectController@submit');
-    Route::get('/project/details/{id}', 'Atelier\ProjectController@details');
-    Route::get('/project/tasks/{projectId}', 'Atelier\ProjectController@tasks');
-    Route::get('/project/taskForm/{projectId}/{taskId?}', 'Atelier\ProjectController@taskForm');
-    Route::post('/project/submitTask/', 'Atelier\ProjectController@submitTask');
-    Route::get('/project/task/{id}', 'Atelier\ProjectController@task');
-    Route::post('/project/changeTaskStatus', 'Atelier\ProjectController@changeTaskStatus');
-    Route::post('/project/changeStartDate', 'Atelier\ProjectController@changeStartDate');
-    Route::post('/project/deleteTask', 'Atelier\ProjectController@deleteTask');
+        Route::get('/project/list', 'Atelier\ProjectController@list');
+        Route::get('/project/form/{id?}', 'Atelier\ProjectController@form');
+        Route::post('/project/submit', 'Atelier\ProjectController@submit');
+        Route::get('/project/details/{id}', 'Atelier\ProjectController@details');
+        Route::get('/project/tasks/{projectId}', 'Atelier\ProjectController@tasks');
+        Route::get('/project/taskForm/{projectId}/{taskId?}', 'Atelier\ProjectController@taskForm');
+        Route::post('/project/submitTask/', 'Atelier\ProjectController@submitTask');
+        Route::get('/project/task/{id}', 'Atelier\ProjectController@task');
+        Route::post('/project/changeTaskStatus', 'Atelier\ProjectController@changeTaskStatus');
+        Route::post('/project/changeStartDate', 'Atelier\ProjectController@changeStartDate');
+        Route::post('/project/deleteTask', 'Atelier\ProjectController@deleteTask');
+    });
 
     Route::get('/game/test/{id}', 'Atelier\GameController@test');
     Route::post('/game/submit', 'Atelier\GameController@submit');

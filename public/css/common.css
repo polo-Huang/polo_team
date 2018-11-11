@@ -605,3 +605,21 @@ body.sidebar-close .main {
   padding: 10px;
   min-height: 400px;
 }
+/* clock-index */
+.clock-div {
+  margin-top: 50px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+.clock-div.clock-btn span {
+  cursor: pointer;
+}
+.clock-div span {
+  font-size: 32px;
+  padding: 50px;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.clock-div.clock-btn span:hover {
+  background-color: #efefef;
+}

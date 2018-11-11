@@ -24,7 +24,7 @@
 	<section>
 		<ol class="action-btn-group">
 			<li><a href="{{ url('/atelier/project/form') }}">添加项目</a></li>
-			<li><a href="javascript:void(0);">工作时长</a></li>
+			<li><a href="{{ url('/atelier/clock/checkOutView') }}">下班</a></li>
 		</ol>
 	</section>
 	<h4 class="mb-20">项目</h4>
