@@ -19,7 +19,7 @@ class ClockController extends Controller
     	$checkInTime = time();
     	$clock = Clock::create([
     		'user_id' => Auth::id(),
-    		'check_in_date' => date('Y-m-d h:i:s', $checkInTime),
+    		'check_in_date' => date('Y-m-d H:i:s', $checkInTime),
     	]);
     	return json_encode(['success' => true, 'returnUrl' => '/atelier/clock/checkInSuccess']);
     }

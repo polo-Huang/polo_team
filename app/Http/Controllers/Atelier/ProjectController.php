@@ -73,7 +73,7 @@ class ProjectController extends Controller
                 'user_id' => $data['creater_id'],
                 'project_id' => $project->id,
                 'role' => 'creater',
-                'join_date' => date('Y-m-d h:i:s', time()),
+                'join_date' => date('Y-m-d H:i:s', time()),
             ]);
         }
         // 加入成员
@@ -82,7 +82,7 @@ class ProjectController extends Controller
             ProjectMember::create([
                 'user_id' => $userId,
                 'project_id' => $project->id,
-                'join_date' => date('Y-m-d h:i:s', time()),
+                'join_date' => date('Y-m-d H:i:s', time()),
             ]);
         }
     	return redirect('/atelier/project/details/'.$project->id);

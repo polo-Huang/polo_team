@@ -71,5 +71,40 @@
 		  </div>
 	  </div>
   </div>
+  <div class="row">
+  	<div class="col-md-12">
+  		<div class="card">
+  			<div class="card-block">
+  				<div class="work-time-div">
+						<table>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>成员</th>
+									<th>加入日期</th>
+									<th>最近上班时间</th>
+									<th>需工作总时长 (h) 4h/day</th>
+									<th>实际工作时长 (h)</th>
+									<th>工作量 (h)</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
 </div>
 @endsection
