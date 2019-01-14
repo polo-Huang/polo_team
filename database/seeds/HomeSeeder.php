@@ -18,7 +18,8 @@ class HomeSeeder extends Seeder
             'about' => '关于我们',
             'address' => '新河街 402号, 马安堂社区 龙岗区, 深圳市',
             'phone' => '17620400928',
-            'email' => 'polo_07@163.com'
+            'email' => 'polo_07@163.com',
+            'status' => 'active'
         ]);
     }
 }
