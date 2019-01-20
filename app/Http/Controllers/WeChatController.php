@@ -31,5 +31,40 @@ class WeChatController extends Controller
     		echo 'error';
     		exit;
     	}
+
+    	// 接收xml数据
+    	$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+    	if (!$postStr) {
+    		echo 'post data error';
+    		exit;
+    	}
+
+    	$postObj = simplexml_load_string($postStr, 'SimpleXmlElement', LIBXML_NOCDATA);
+    	$MsgType = $postObj->MsgType;
+    	$xml = '
+			<xml>
+				<ToUserName>< ![CDATA['.$postObj->FromUserName.'] ]></ToUserName>
+				<FromUserName>< ![CDATA['.$postObj->ToUserName.'] ]></FromUserName>
+				<CreateTime>'.time().'</CreateTime>
+				<MsgType>< ![CDATA[text] ]></MsgType>
+				<Content>< ![CDATA['.$postObj->MsgType.'] ]></Content>
+			</xml>';
+    	// switch ($MsgType) {
+    	// 	case 'text':
+    	// 		$xml = '
+	    // 			<xml>
+	    // 				<ToUserName>< ![CDATA['.$postObj->FromUserName.'] ]></ToUserName>
+	    // 				<FromUserName>< ![CDATA['.$postObj->ToUserName.'] ]></FromUserName>
+	    // 				<CreateTime>'.time().'</CreateTime>
+	    // 				<MsgType>< ![CDATA[text] ]></MsgType>
+	    // 				<Content>< ![CDATA['.$postObj->MsgType.'] ]></Content>
+	    // 			</xml>';
+    	// 		break;
+    		
+    	// 	default:
+    	// 		# code...
+    	// 		break;
+    	// }
+		echo $xml;
     }
 }
