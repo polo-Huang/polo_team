@@ -17,6 +17,8 @@ Route::get('/test', 'HomeController@test');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
 Route::get('/user/{id}', 'HomeController@user');
+Route::get('/exchange', 'HomeController@exchange');
+Route::get('/exchangeCalculate', 'HomeController@exchangeCalculate');
 
 
 Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {

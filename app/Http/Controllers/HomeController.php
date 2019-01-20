@@ -22,6 +22,11 @@ class HomeController extends Controller
         return view('home', ['home' => $home]);
     }
 
+    public function test()
+    {
+        return view('/test');
+    }
+
     public function user($id)
     {
         $user = User::find($id);
@@ -35,8 +40,31 @@ class HomeController extends Controller
         return view('cannotAccess', ['error' => $error]);
     }
 
-    public function test()
+    public function exchange()
     {
-        return view('/test');
+        $data = $this->exchangeApi('HKD', 'CNY');
+        return view('/exchange', ['data' => $data]);
+    }
+
+    public function exchangeCalculate(Request $request)
+    {
+        // dd($request->all());
+        $currencyFrom = $request->get('currencyFrom');
+        $currencyTo = $request->get('currencyTo');
+        $data = $this->exchangeApi($currencyFrom, $currencyTo);
+        $retCode = $data['allData']->retCode;
+        if ('200' == $retCode)
+            return json_encode(['success' => true, 'data' => $data]);
+        else
+            return json_encode(['success' => false, 'error' => $retCode]);
+    }
+
+    private function exchangeApi($currencyFrom, $currencyTo)
+    {
+        $appkey = ENV('DASHBOARD_MOD_APPKEY');
+        $jsonData = file_get_contents('http://apicloud.mob.com/exchange/code/query?key='.$appkey.'&code='.$currencyFrom.$currencyTo);
+        $data = json_decode($jsonData);
+        $result = $data->result;
+        return ['buyPic' => $result->buyPic, 'allData' => $data];
     }
 }
