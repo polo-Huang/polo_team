@@ -54,7 +54,7 @@ Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {
         Route::post('/home/uploadCoverPhoto', 'Admin\HomeController@uploadCoverPhoto');
         Route::post('/home/editBasicProfile', 'Admin\HomeController@editBasicProfile');
     });
-
-    Route::get('/wechat/index', 'Atelier\WeChatController@index');
 });
+
+Route::get('/wechat/index', 'WeChatController@index');
 

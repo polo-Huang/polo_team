@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Atelier;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class WeChatController extends Controller
 {
