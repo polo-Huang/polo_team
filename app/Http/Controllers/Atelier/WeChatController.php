@@ -19,7 +19,7 @@ class WeChatController extends Controller
     	// 随机字符串
     	$echostr = $request['echostr'];
     	// TOKEN
-    	define('TOKEN', 'Atelier is polo team');
+    	define('TOKEN', 'atelier');
     	// 字典序排序
     	$tmpArr = array(TOKEN, $timestamp, $nonce);
     	sort($tmpArr, SORT_STRING);
