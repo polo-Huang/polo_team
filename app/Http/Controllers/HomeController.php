@@ -61,9 +61,10 @@ class HomeController extends Controller
 
     private function exchangeApi($currencyFrom, $currencyTo)
     {
-        $appkey = ENV('DASHBOARD_MOD_APPKEY');
+        $appkey = ENV('DASHBOARD_MOD_APPKEY', '29da1e3142be0');
         $jsonData = file_get_contents('http://apicloud.mob.com/exchange/code/query?key='.$appkey.'&code='.$currencyFrom.$currencyTo);
         $data = json_decode($jsonData);
+        // dd($data);
         $result = $data->result;
         return ['buyPic' => $result->buyPic, 'allData' => $data];
     }
