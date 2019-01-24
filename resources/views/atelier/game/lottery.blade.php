@@ -16,6 +16,7 @@
 <section>
 <ol class="breadcrumb">
   <li><a href="{{ url('/atelier/index') }}">atelier</a></li>
+  <li><a href="{{ url('/atelier/game/cards') }}">cards</a></li>
   <li class="active">{{ 'test' }}</li>
 </ol>
 </section>

@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Game extends Model
 {
     protected $fillable = [
-        'creater_id', 'name', 'type'
+        'creater_id', 'name', 'type', 'url'
     ];
 }

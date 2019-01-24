@@ -48,8 +48,12 @@ Route::group(['prefix' => 'atelier', 'middleware' => ['auth']], function () {
         Route::post('/project/deleteTask', 'Atelier\ProjectController@deleteTask');
     });
 
-    Route::get('/game/test/{id}', 'Atelier\GameController@test');
+    Route::get('/game/cards', 'Atelier\GameController@cards');
+    Route::get('/game/form/{id?}', 'Atelier\GameController@form');
     Route::post('/game/submit', 'Atelier\GameController@submit');
+    Route::get('/game/lottery/{id}', 'Atelier\GameController@lottery');
+    Route::post('/game/submitLottery', 'Atelier\GameController@submitLottery');
+    Route::get('/game/timer', 'Atelier\GameController@timer');
 
     Route::group(['middleware' => ['isAdmin']], function () {
         Route::get('/user/list', 'Admin\HomeController@list');

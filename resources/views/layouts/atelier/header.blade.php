@@ -69,7 +69,7 @@
           <li><a href="{{ url('/admin/image/list') }}" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'image') class="active" @endif><span class="icon"><i class="fa fa-image"></i></span> 图片</a></li>
           <li><a href="javascript:void(0)" @if (empty(explode('/', Request::path())[1]) ? 0 : explode('/', Request::path())[1] == 'user') class="active" @endif><span class="icon"><i class="fa fa-photo"></i></span> 用户</a></li>
           @endif
-          <li><a href="{{ url('/atelier/game/test/1') }}"><span class="icon"><i class="fa fa-gamepad"></i></span> 测试游戏</a></li>
+          <li><a href="{{ url('/atelier/game/cards') }}"><span class="icon"><i class="fa fa-gamepad"></i></span> 测试&游戏</a></li>
         </ul>
       </div>
     </div>
